@@ -1,10 +1,10 @@
 package Tpdohp;
 
-import sun.org.mozilla.javascript.internal.Node;
 import common.SimulatorParams;
+import common.Simulator_Interface;
 import Tpdohp.PlateNode;
 
-public class Simulator {
+public class Simulator implements Simulator_Interface{
 
 	public PlateNode top_left;
 	public int dimen;
@@ -121,21 +121,34 @@ public class Simulator {
 		int iterations = 0;
 		boolean loop_again = true;
 		while(iterations < max_iter && loop_again == true) {
-			loop_again = false;
-			PlateNodeIter iter = top_left.iterator();
-			while(iter.hasNext()) {
-				PlateNode node = iter.next();
-				node.value = (node.above.old_value + node.below.old_value + node.left.old_value + node.right.old_value) / 4.0;
-				if(Math.abs(node.value - node.old_value) > delta) {
-					loop_again = true;
-				}
-			}
-			PlateNodeIter iter2 = top_left.iterator();
-			while(iter2.hasNext()) {
-				PlateNode node = iter2.next();
-				node.old_value = node.value;
+			loop_again = heat_once(delta);
+			update_plate();
+			iterations++;
+		}
+	}
+	
+	/**
+	 * Moves values in the node tree from node.value to node.old_value
+	 */
+	public void update_plate() {
+		PlateNodeIter iter2 = top_left.iterator();
+		while(iter2.hasNext()) {
+			PlateNode node = iter2.next();
+			node.old_value = node.value;
+		}
+	}
+	
+	public boolean heat_once(double delta) {
+		boolean loop_again = false;
+		PlateNodeIter iter = top_left.iterator();
+		while(iter.hasNext()) {
+			PlateNode node = iter.next();
+			node.value = (node.above.old_value + node.below.old_value + node.left.old_value + node.right.old_value) / 4.0;
+			if(Math.abs(node.value - node.old_value) > delta) {
+				loop_again = true;
 			}
 		}
+		return loop_again;
 	}
 	
 	/**

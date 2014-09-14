@@ -19,16 +19,22 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.DefaultComboBoxModel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
+import common.Simulator_Types;
 
 public class Demo {
 
 	private JFrame frame;
-	private JTextField textField_dimen;
-	private JTextField textField_top;
-	private JTextField textField_bot;
-	private JTextField textField_left;
-	private JTextField textField_right;
-
+	private JSpinner spinner_dimen;
+	private JSpinner spinner_top;
+	private JSpinner spinner_bot;
+	private JSpinner spinner_left;
+	private JSpinner spinner_right;
+	
+	private DrawnGrid drawnGrid;
 	/**
 	 * Launch the application.
 	 */
@@ -51,7 +57,7 @@ public class Demo {
 	public Demo() {
 		initialize();
 	}
-
+	
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -87,15 +93,14 @@ public class Demo {
 		gbc_label.gridy = 0;
 		panel.add(label, gbc_label);
 		
-		textField_dimen = new JTextField();
-		textField_dimen.setText("3");
-		textField_dimen.setColumns(10);
-		GridBagConstraints gbc_textField_dimen = new GridBagConstraints();
-		gbc_textField_dimen.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_dimen.insets = new Insets(0, 0, 5, 0);
-		gbc_textField_dimen.gridx = 1;
-		gbc_textField_dimen.gridy = 0;
-		panel.add(textField_dimen, gbc_textField_dimen);
+		spinner_dimen = new JSpinner();
+		spinner_dimen.setModel(new SpinnerNumberModel(3, 0, 100, 1));
+		GridBagConstraints gbc_spinner_dimen = new GridBagConstraints();
+		gbc_spinner_dimen.fill = GridBagConstraints.HORIZONTAL;
+		gbc_spinner_dimen.insets = new Insets(0, 0, 5, 0);
+		gbc_spinner_dimen.gridx = 1;
+		gbc_spinner_dimen.gridy = 0;
+		panel.add(spinner_dimen, gbc_spinner_dimen);
 		
 		JLabel label_1 = new JLabel("Top");
 		GridBagConstraints gbc_label_1 = new GridBagConstraints();
@@ -104,15 +109,13 @@ public class Demo {
 		gbc_label_1.gridy = 1;
 		panel.add(label_1, gbc_label_1);
 		
-		textField_top = new JTextField();
-		textField_top.setText("0");
-		textField_top.setColumns(10);
-		GridBagConstraints gbc_textField_top = new GridBagConstraints();
-		gbc_textField_top.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_top.insets = new Insets(0, 0, 5, 0);
-		gbc_textField_top.gridx = 1;
-		gbc_textField_top.gridy = 1;
-		panel.add(textField_top, gbc_textField_top);
+		spinner_top = new JSpinner();
+		GridBagConstraints gbc_spinner_top = new GridBagConstraints();
+		gbc_spinner_top.fill = GridBagConstraints.HORIZONTAL;
+		gbc_spinner_top.insets = new Insets(0, 0, 5, 0);
+		gbc_spinner_top.gridx = 1;
+		gbc_spinner_top.gridy = 1;
+		panel.add(spinner_top, gbc_spinner_top);
 		
 		JLabel label_2 = new JLabel("Bottom");
 		GridBagConstraints gbc_label_2 = new GridBagConstraints();
@@ -121,15 +124,13 @@ public class Demo {
 		gbc_label_2.gridy = 2;
 		panel.add(label_2, gbc_label_2);
 		
-		textField_bot = new JTextField();
-		textField_bot.setText("0");
-		textField_bot.setColumns(10);
-		GridBagConstraints gbc_textField_bot = new GridBagConstraints();
-		gbc_textField_bot.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_bot.insets = new Insets(0, 0, 5, 0);
-		gbc_textField_bot.gridx = 1;
-		gbc_textField_bot.gridy = 2;
-		panel.add(textField_bot, gbc_textField_bot);
+		spinner_bot = new JSpinner();
+		GridBagConstraints gbc_spinner_bot = new GridBagConstraints();
+		gbc_spinner_bot.fill = GridBagConstraints.HORIZONTAL;
+		gbc_spinner_bot.insets = new Insets(0, 0, 5, 0);
+		gbc_spinner_bot.gridx = 1;
+		gbc_spinner_bot.gridy = 2;
+		panel.add(spinner_bot, gbc_spinner_bot);
 		
 		JLabel label_3 = new JLabel("Left");
 		GridBagConstraints gbc_label_3 = new GridBagConstraints();
@@ -138,15 +139,13 @@ public class Demo {
 		gbc_label_3.gridy = 3;
 		panel.add(label_3, gbc_label_3);
 		
-		textField_left = new JTextField();
-		textField_left.setText("0");
-		textField_left.setColumns(10);
-		GridBagConstraints gbc_textField_left = new GridBagConstraints();
-		gbc_textField_left.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_left.insets = new Insets(0, 0, 5, 0);
-		gbc_textField_left.gridx = 1;
-		gbc_textField_left.gridy = 3;
-		panel.add(textField_left, gbc_textField_left);
+		spinner_left = new JSpinner();
+		GridBagConstraints gbc_spinner_left = new GridBagConstraints();
+		gbc_spinner_left.fill = GridBagConstraints.HORIZONTAL;
+		gbc_spinner_left.insets = new Insets(0, 0, 5, 0);
+		gbc_spinner_left.gridx = 1;
+		gbc_spinner_left.gridy = 3;
+		panel.add(spinner_left, gbc_spinner_left);
 		
 		JLabel label_4 = new JLabel("Right");
 		GridBagConstraints gbc_label_4 = new GridBagConstraints();
@@ -155,15 +154,13 @@ public class Demo {
 		gbc_label_4.gridy = 4;
 		panel.add(label_4, gbc_label_4);
 		
-		textField_right = new JTextField();
-		textField_right.setText("0");
-		textField_right.setColumns(10);
-		GridBagConstraints gbc_textField_right = new GridBagConstraints();
-		gbc_textField_right.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_right.insets = new Insets(0, 0, 5, 0);
-		gbc_textField_right.gridx = 1;
-		gbc_textField_right.gridy = 4;
-		panel.add(textField_right, gbc_textField_right);
+		spinner_right = new JSpinner();
+		GridBagConstraints gbc_spinner_right = new GridBagConstraints();
+		gbc_spinner_right.fill = GridBagConstraints.HORIZONTAL;
+		gbc_spinner_right.insets = new Insets(0, 0, 5, 0);
+		gbc_spinner_right.gridx = 1;
+		gbc_spinner_right.gridy = 4;
+		panel.add(spinner_right, gbc_spinner_right);
 		
 		JLabel label_5 = new JLabel("Simulation Type");
 		GridBagConstraints gbc_label_5 = new GridBagConstraints();
@@ -174,7 +171,7 @@ public class Demo {
 		panel.add(label_5, gbc_label_5);
 		
 		JComboBox SimType_comboBox = new JComboBox();
-		SimType_comboBox.setModel(new DefaultComboBoxModel(new String[] {"Twdahp", "Tpdahp", "Tpfahp", "Tpdohp"}));
+		SimType_comboBox.setModel(new DefaultComboBoxModel(Simulator_Types.values()));
 		GridBagConstraints gbc_SimType_comboBox = new GridBagConstraints();
 		gbc_SimType_comboBox.fill = GridBagConstraints.HORIZONTAL;
 		gbc_SimType_comboBox.insets = new Insets(0, 0, 5, 0);
@@ -224,12 +221,24 @@ public class Demo {
 		gbc_checkBox.gridy = 8;
 		panel.add(checkBox, gbc_checkBox);
 		
-		DrawnGrid drawnGrid = new DrawnGrid(0, 0, 0, 0, 3, 3);
+		drawnGrid = new DrawnGrid(0, 0, 0, 0, 10, 10);
 		GridBagConstraints gbc_drawnGrid = new GridBagConstraints();
 		gbc_drawnGrid.fill = GridBagConstraints.BOTH;
 		gbc_drawnGrid.gridx = 1;
 		gbc_drawnGrid.gridy = 0;
 		frame.getContentPane().add(drawnGrid, gbc_drawnGrid);
+		
+		ActionListener saver = new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int    dimen = (int) spinner_dimen.getValue();
+				Double top   = (Double) spinner_top.getValue();
+				Double bot   = (Double) spinner_bot.getValue();
+				Double left  = (Double) spinner_left.getValue();
+				Double right = (Double) spinner_right.getValue();
+				
+				drawnGrid = new DrawnGrid(0, 0, 0, 0, dimen, dimen);
+			}
+		};
 	}
 
 }

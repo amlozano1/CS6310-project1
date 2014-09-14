@@ -1,10 +1,12 @@
 package Tpfahp;
 
 import common.SimulatorParams;
+import common.Simulator_Interface;
 
-public class Simulator {
+public class Simulator implements Simulator_Interface{
 
 	public float [][] plate;
+	public float [][] old_plate;
 	public int dimen;
 	/**
 	 * If dimen is 3, Creates a new plate like:
@@ -27,22 +29,28 @@ public class Simulator {
 	public Simulator(int startDimen, float top, float bottom, float left, float right) {
 		dimen = startDimen + 2; //need room in each dimension for the edges
 		plate = new float[dimen][dimen];
+		old_plate = new float[dimen][dimen];
 		for(int y=0; y < dimen; y++) {
 			for(int x=0; x < dimen; x++) {
 				if(0 == y) { //This means top edge of the plate
-					plate[y][x] = top; 
+					plate[y][x] = top;
+					old_plate[y][x] = top;
 				}
 				else if(0 == x) { // This means left edge of the plate
 					plate[y][x] = left;
+					old_plate[y][x] = left;
 				}
 				else if(dimen-1 == y) { // This means bottom edge of the plate
 					plate[y][x] = bottom;
+					old_plate[y][x] = bottom;
 				}
 				else if(dimen-1 == x) { // This means right edge of the plate
 					plate[y][x] = right;
+					old_plate[y][x] = right;
 				}
 				else { //not on an edge
 					plate[y][x] = (float)0.0;
+					old_plate[y][x] = (float)0.0;
 				}
 			}
 		}
@@ -81,20 +89,29 @@ public class Simulator {
 		int iterations = 0;
 		boolean loop_again = true;
 		while(iterations < max_iter && loop_again == true) {
-			loop_again = false; //assume we will not loop again
-			Simulator old_sim = new Simulator(this);
-			for(int x=1; x < dimen-1; x++) { 
-				for(int y=1; y < dimen-1; y++) { 
-					plate[x][y] = (old_sim.plate[x + 1][y] + old_sim.plate[x - 1][y] +
-                            old_sim.plate[x][y + 1] + old_sim.plate[x][y - 1]) / (float)4.0;
-					if(Math.abs(plate[x][y] - old_sim.plate[x][y]) > delta)
-					{
-						loop_again = true;
-					}
-				}
-			}
+			loop_again = heat_once(delta);
+			iterations++;
 		}
 	}
+		
+		
+//		int iterations = 0;
+//		boolean loop_again = true;
+//		while(iterations < max_iter && loop_again == true) {
+//			loop_again = false; //assume we will not loop again
+//			Simulator old_sim = new Simulator(this);
+//			for(int x=1; x < dimen-1; x++) { 
+//				for(int y=1; y < dimen-1; y++) { 
+//					plate[x][y] = (old_sim.plate[x + 1][y] + old_sim.plate[x - 1][y] +
+//                            old_sim.plate[x][y + 1] + old_sim.plate[x][y - 1]) / (float)4.0;
+//					if(Math.abs(plate[x][y] - old_sim.plate[x][y]) > delta)
+//					{
+//						loop_again = true;
+//					}
+//				}
+//			}
+//		}
+//	}
 	
 	/**
 	 * Calls heat() with max_iter = 10000 and delta = .01
@@ -122,5 +139,29 @@ public class Simulator {
 			as_string += '\n';
 		}
 		return as_string;
+	}
+
+	@Override
+	public boolean heat_once(double delta) {
+		boolean loop_again = false; // start hoping we don't need to loop again
+		for(int x=1; x < dimen-1; x++) { 
+			for(int y=1; y < dimen-1; y++) { 
+				plate[x][y] = (old_plate[x + 1][y] + old_plate[x - 1][y] +
+                        old_plate[x][y + 1] + old_plate[x][y - 1]) / (float)4.0;
+				if(Math.abs(plate[x][y] - old_plate[x][y]) > delta)
+				{
+					loop_again = true; // we need to loop again.
+				}
+			}
+		}
+		swap();
+		return loop_again;
+	}
+	
+	public void swap() {
+		float[][] plate_swap;
+		plate_swap = plate;
+		plate = old_plate;
+		old_plate = plate_swap;
 	}
 }
