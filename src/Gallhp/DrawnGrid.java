@@ -8,6 +8,7 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.lang.Math;
 
+import common.Simulator_Interface;
 /**
  * A class that demonstrates how to draw temperature grids in Java.
  * Displays a square grid in which the cells are painted with
@@ -28,13 +29,15 @@ public class DrawnGrid extends JPanel {
      * @param w width of the rectangle
      * @param h height of the rectangle
      */
-    public DrawnGrid(int x, int y, int w, int h, int num_rows, int num_cols) {
+    public DrawnGrid(int x, int y, int w, int h, int num_rows, int num_cols, Simulator_Interface sim) {
         ulhcX = x;
         ulhcY = y;
         width = w;
         height = h;
         row_count = num_rows;
         col_count = num_cols;
+        simulator = sim;
+        heating_done = false;
     }
 
     /**
@@ -81,13 +84,9 @@ public class DrawnGrid extends JPanel {
         BufferedImage bi = new BufferedImage(getWidth(), getHeight(),
                 BufferedImage.TYPE_INT_ARGB);
         Graphics anotherGraphics = bi.createGraphics();
-
+        heating_done = simulator.heat_once(.01);
         for (int i = 0; i < row_count; i++)
             for (int j = 0; j < col_count; j++)
-                // Instead of calling random, here is where you
-                //   would insert the call that would provide
-                //   the temperature of the corresponding cell
-                //   on the heated plate.
                 paintSpot(anotherGraphics, i, j, Math.random());
         
         aGraphics.drawImage(bi, 0, 0, this);
@@ -155,4 +154,14 @@ public class DrawnGrid extends JPanel {
      * Number of cells in a row 
      */
     private int col_count;
+    
+    /**
+     * A simulator instance to heat and fetch values from.
+     */
+    private Simulator_Interface simulator;
+    
+    /**
+     * Keeps track of whether the heating is done or not.
+     */
+    private boolean heating_done;
 }

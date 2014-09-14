@@ -1,31 +1,28 @@
 package Gallhp;
 
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import java.awt.GridBagLayout;
-import javax.swing.JCheckBox;
 import java.awt.GridBagConstraints;
-import javax.swing.JLabel;
+import java.awt.GridBagLayout;
 import java.awt.Insets;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-import com.jgoodies.forms.factories.FormFactory;
-import java.awt.GridLayout;
-import javax.swing.JComboBox;
-import javax.swing.JSlider;
-import javax.swing.JButton;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.DefaultComboBoxModel;
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSlider;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.Timer;
+
+import common.Simulator_Interface;
 import common.Simulator_Types;
 
-public class Demo {
+public class Demo{
 
 	private JFrame frame;
 	private JSpinner spinner_dimen;
@@ -33,8 +30,11 @@ public class Demo {
 	private JSpinner spinner_bot;
 	private JSpinner spinner_left;
 	private JSpinner spinner_right;
-	
+	private JComboBox SimType_comboBox;
+	private JSlider speed_slider;
 	private DrawnGrid drawnGrid;
+	private Timer animation_timer;
+
 	/**
 	 * Launch the application.
 	 */
@@ -170,7 +170,7 @@ public class Demo {
 		gbc_label_5.gridy = 5;
 		panel.add(label_5, gbc_label_5);
 		
-		JComboBox SimType_comboBox = new JComboBox();
+		SimType_comboBox = new JComboBox();
 		SimType_comboBox.setModel(new DefaultComboBoxModel(Simulator_Types.values()));
 		GridBagConstraints gbc_SimType_comboBox = new GridBagConstraints();
 		gbc_SimType_comboBox.fill = GridBagConstraints.HORIZONTAL;
@@ -200,7 +200,8 @@ public class Demo {
 		gbc_label_8.gridy = 7;
 		panel.add(label_8, gbc_label_8);
 		
-		JSlider speed_slider = new JSlider();
+		speed_slider = new JSlider();
+		speed_slider.setValue(20);
 		GridBagConstraints gbc_speed_slider = new GridBagConstraints();
 		gbc_speed_slider.fill = GridBagConstraints.HORIZONTAL;
 		gbc_speed_slider.insets = new Insets(0, 0, 5, 0);
@@ -221,7 +222,10 @@ public class Demo {
 		gbc_checkBox.gridy = 8;
 		panel.add(checkBox, gbc_checkBox);
 		
-		drawnGrid = new DrawnGrid(0, 0, 0, 0, 10, 10);
+		Simulator_Types selectedItem = (Simulator_Types) SimType_comboBox.getSelectedItem();
+		Simulator_Interface sim_interface = null;
+		int dimen = 3;
+		drawnGrid = new DrawnGrid(0, 0, 0, 0, dimen, dimen, sim_interface);
 		GridBagConstraints gbc_drawnGrid = new GridBagConstraints();
 		gbc_drawnGrid.fill = GridBagConstraints.BOTH;
 		gbc_drawnGrid.gridx = 1;
@@ -235,8 +239,31 @@ public class Demo {
 				Double bot   = (Double) spinner_bot.getValue();
 				Double left  = (Double) spinner_left.getValue();
 				Double right = (Double) spinner_right.getValue();
-				
-				drawnGrid = new DrawnGrid(0, 0, 0, 0, dimen, dimen);
+				Simulator_Interface sim_interface;
+				Simulator_Types selectedItem = (Simulator_Types) SimType_comboBox.getSelectedItem();
+				if(Simulator_Types.Tpdahp == selectedItem){
+					sim_interface = new Tpdahp.Simulator(dimen, top, bot, left, right);
+				}
+				else if(Simulator_Types.Twdahp == selectedItem) {
+					sim_interface = new Twdahp.Simulator(dimen, top, bot, left, right);
+				}
+				else if(Simulator_Types.Tpfahp == selectedItem) {
+					sim_interface = new Tpfahp.Simulator(dimen, top.floatValue(), bot.floatValue(), left.floatValue(), right.floatValue());
+				}
+				else if(Simulator_Types.Tpdohp == selectedItem) {
+					sim_interface = new Tpdohp.Simulator(dimen, top, bot, left, right);
+				}
+				else {
+					throw new UnsupportedOperationException("That simulation type is not supported yet.");
+				}
+				int speed_ms = (101 - speed_slider.getValue()) * 10;
+				animation_timer = new Timer(speed_ms, null);
+				drawnGrid = new DrawnGrid(0, 0, 0, 0, dimen, dimen, sim_interface);
+				GridBagConstraints gbc_drawnGrid = new GridBagConstraints();
+				gbc_drawnGrid.fill = GridBagConstraints.BOTH;
+				gbc_drawnGrid.gridx = 1;
+				gbc_drawnGrid.gridy = 0;
+				frame.getContentPane().add(drawnGrid, gbc_drawnGrid);
 			}
 		};
 	}

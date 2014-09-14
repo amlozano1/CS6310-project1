@@ -1,13 +1,15 @@
 package Tpdahp;
 
+import common.ArrayIterator;
 import common.SimulatorParams;
 import common.Simulator_Interface;
+import common.Array_Simulator;
 
-public class Simulator implements Simulator_Interface{
+public class Simulator extends Array_Simulator{
 
 	public double [][] plate;
 	public double [][] old_plate;
-	public int dimen;
+
 	/**
 	 * If dimen is 3, Creates a new plate like:
 	 * ----------x----------->
@@ -112,22 +114,14 @@ public class Simulator implements Simulator_Interface{
 		heat(max_iter, delta);
 	}
 	
-	/**
-	 * Returns a string representation of the plate, not including the edges.
-	 */
-	public String toString(){
-		String as_string = "";
-		
-		// do not include edges of plate in loop
+	@Override
+	public Double[][] getPlate() {
+		Double[][] return_plate = new Double[dimen][dimen];
 		for(int x=1; x < dimen-1; x++) { 
-			for(int y=1; y < dimen-1; y++) { 
-				if( 1 != y) { // if this is not the first print for the row...
-					as_string += '\t'; // add a tab before the number
-				}
-				as_string += String.format("%2.2f", plate[x][y]);
+			for(int y=1; y < dimen-1; y++) {
+				return_plate[x][y] = Double.valueOf( plate[x][y]);
 			}
-			as_string += '\n';
 		}
-		return as_string;
+		return return_plate;
 	}
 }
