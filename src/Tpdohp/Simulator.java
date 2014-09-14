@@ -1,10 +1,12 @@
 package Tpdohp;
 
+import java.util.Iterator;
+
 import common.SimulatorParams;
 import common.Simulator_Interface;
 import Tpdohp.PlateNode;
 
-public class Simulator implements Simulator_Interface{
+public class Simulator extends Simulator_Interface {
 
 	public PlateNode top_left;
 	public int dimen;
@@ -165,19 +167,56 @@ public class Simulator implements Simulator_Interface{
 	 */
 	public String toString(){
 		String as_string = "";
-		PlateNodeIter iter = top_left.iterator();
-		
+		Iterator<Double> iter = this.iterator();
+		int row_pos = 1; // iter starts from column '1' 
 		while(iter.hasNext()) {
-			PlateNode node = iter.next();
-			as_string += String.format("%2.2f", node.value);
-			if(!node.right.is_right_edge) {
-				as_string += '\t';
-			}
-			else {
+			Double value = iter.next();
+			as_string += String.format("%2.2f", value);
+			if(dimen-2 <= row_pos) { //dimen-2 is the size of the inner plate
+				row_pos = 1; // iter starts from column '1' 
 				as_string += '\n';
 			}
+			else {
+				row_pos++;
+				as_string += '\t';
+			}
 		}
+
 		
 		return as_string;
+//		PlateNodeIter iter = top_left.iterator();
+//		
+//		while(iter.hasNext()) {
+//			PlateNode node = iter.next();
+//			as_string += String.format("%2.2f", node.value);
+//			if(!node.right.is_right_edge) {
+//				as_string += '\t';
+//			}
+//			else {
+//				as_string += '\n';
+//			}
+//		}
+	}
+
+	interface SimulatorIterator extends java.util.Iterator<Double> {}
+	private class InnerIterator implements SimulatorIterator {
+		private PlateNodeIter iter = top_left.iterator();
+		public boolean hasNext() {
+			return iter.hasNext();
+		}
+			
+		public Double next() {
+			return iter.next().value;
+		}
+
+		public void remove() {
+			// TODO Auto-generated method stub
+			
+		}
+	}
+	
+	@Override
+	public Iterator<Double> iterator() {
+		return new InnerIterator();
 	}
 }

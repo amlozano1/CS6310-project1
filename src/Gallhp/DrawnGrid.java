@@ -2,11 +2,13 @@ package Gallhp;
 
 import javax.swing.JPanel;
 import javax.swing.JFrame;
+
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.lang.Math;
+import java.util.Iterator;
 
 import common.Simulator_Interface;
 /**
@@ -84,11 +86,14 @@ public class DrawnGrid extends JPanel {
         BufferedImage bi = new BufferedImage(getWidth(), getHeight(),
                 BufferedImage.TYPE_INT_ARGB);
         Graphics anotherGraphics = bi.createGraphics();
-        heating_done = simulator.heat_once(.01);
-        for (int i = 0; i < row_count; i++)
-            for (int j = 0; j < col_count; j++)
-                paintSpot(anotherGraphics, i, j, Math.random());
-        
+        Double temp_val;
+        Iterator<Double> iter = simulator.iterator();
+        for (int i = 0; i < row_count; i++) {
+            for (int j = 0; j < col_count; j++){
+            	temp_val = iter.next() * .01; //normalize from 0-100 to 0-1
+                paintSpot(anotherGraphics, i, j, temp_val);
+            }
+    	}
         aGraphics.drawImage(bi, 0, 0, this);
    }
     
@@ -158,10 +163,10 @@ public class DrawnGrid extends JPanel {
     /**
      * A simulator instance to heat and fetch values from.
      */
-    private Simulator_Interface simulator;
+    public Simulator_Interface simulator;
     
     /**
      * Keeps track of whether the heating is done or not.
      */
-    private boolean heating_done;
+    public boolean heating_done;
 }

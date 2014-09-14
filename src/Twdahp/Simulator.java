@@ -1,13 +1,14 @@
 package Twdahp;
 
-import common.SimulatorParams;
-import common.Simulator_Interface;
+import java.util.Iterator;
 
-public class Simulator implements Simulator_Interface {
+import common.SimulatorParams;
+import common.Array_Simulator;
+
+public class Simulator extends Array_Simulator{
 
 	public Double [][] plate;
 	public Double [][] old_plate;
-	public int dimen;
 	/**
 	 * If dimen is 3, Creates a new plate like:
 	 * ----------x----------->
@@ -85,7 +86,7 @@ public class Simulator implements Simulator_Interface {
 	 * 	terminate if max_iter is exceeded. If <=0, this value is ignored. 
 	 * @param delta If the no points in the plate change by at least this value
 	 */
-public void heat(int max_iter, double delta) {
+	public void heat(int max_iter, double delta) {
 		int iterations = 0;
 		boolean loop_again = true;
 		while(iterations < max_iter && loop_again == true) {
@@ -103,24 +104,24 @@ public void heat(int max_iter, double delta) {
 		heat(max_iter, delta);
 	}
 	
-	/**
-	 * Returns a string representation of the plate, not including the edges.
-	 */
-	public String toString(){
-		String as_string = "";
-		
-		// do not include edges of plate in loop
-		for(int x=1; x < dimen-1; x++) { 
-			for(int y=1; y < dimen-1; y++) { 
-				if( 1 != y) { // if this is not the first print for the row...
-					as_string += '\t'; // add a tab before the number
-				}
-				as_string += String.format("%2.2f", plate[x][y]);
-			}
-			as_string += '\n';
-		}
-		return as_string;
-	}
+//	/**
+//	 * Returns a string representation of the plate, not including the edges.
+//	 */
+//	public String toString(){
+//		String as_string = "";
+//		
+//		// do not include edges of plate in loop
+//		for(int x=1; x < dimen-1; x++) { 
+//			for(int y=1; y < dimen-1; y++) { 
+//				if( 1 != y) { // if this is not the first print for the row...
+//					as_string += '\t'; // add a tab before the number
+//				}
+//				as_string += String.format("%2.2f", plate[x][y]);
+//			}
+//			as_string += '\n';
+//		}
+//		return as_string;
+//	}
 
 	@Override
 	public boolean heat_once(double delta) {
@@ -144,6 +145,11 @@ public void heat(int max_iter, double delta) {
 		plate_swap = plate;
 		plate = old_plate;
 		old_plate = plate_swap;
+	}
+	
+	@Override
+	public Double[][] getPlate() {
+		return plate;
 	}
 	
 }
