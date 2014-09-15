@@ -51,7 +51,7 @@ public class SimulatorParams {
 		
 		for(int i=0; i < arg_string.length; i++) {
 			//Parameter_Flags flag = new Parameter_Flags(arg_string[i]);
-			switch (Parameter_Flags.valueOf(arg_string[i])) {
+			switch (Parameter_Flags.fromString((arg_string[i]))) {
 			case DIMEN: {
 				try {
 					if(d_found) throw new IllegalArgumentException("can't assign more than once");
