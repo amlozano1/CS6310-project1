@@ -242,6 +242,11 @@ public class Demo{
 		gbc_drawnGrid.gridy = 0;
 		frame.getContentPane().add(drawnGrid, gbc_drawnGrid);
 		
+		int speed_ms = (101 - speed_slider.getValue()) * 10;
+		animation_timer = new Timer(speed_ms, null);
+		animation_timer.addActionListener(new AnimationListener());
+		animation_timer.setCoalesce(false); //if there already is a trigger in the event loop, don't trigger again.
+		
 		play = new PlayListener();
 		button.addActionListener(play);
 	}
@@ -256,6 +261,7 @@ public class Demo{
 			System.out.println("Heating Done: " + heating_done);
 			if(heating_done && checkBox.isSelected())
 			{
+				animation_timer.stop();
 				play.actionPerformed(e);
 			}
 			else if(heating_done) {
@@ -304,9 +310,8 @@ public class Demo{
 			frame.getContentPane().revalidate();
 			drawnGrid.repaint();
 			iterations = 0;
-			animation_timer = new Timer(speed_ms, null);
-			animation_timer.addActionListener(new AnimationListener());
-			animation_timer.setCoalesce(false); //if there already is a trigger in the event loop, don't trigger again.
+			
+			animation_timer.setDelay(speed_ms);
 			animation_timer.start();
 			
 		}
