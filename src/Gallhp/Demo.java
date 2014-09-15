@@ -274,7 +274,7 @@ public class Demo{
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			int    dimen = (int) spinner_dimen.getValue();
+			int    dimen = (Integer) spinner_dimen.getValue();
 			Double top   = (Double) spinner_top.getValue();
 			Double bot   = (Double) spinner_bot.getValue();
 			Double left  = (Double) spinner_left.getValue();

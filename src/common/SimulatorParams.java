@@ -1,5 +1,5 @@
 package common;
-
+import common.Parameter_Flags;
 
 /**
  * This class parses the command line. Normally I would use a library for such 
@@ -50,9 +50,9 @@ public class SimulatorParams {
 		boolean r_found = false;
 		
 		for(int i=0; i < arg_string.length; i++) {
-			String dummy = arg_string[i];
-			switch (arg_string[i]) {
-			case "-d": {
+			//Parameter_Flags flag = new Parameter_Flags(arg_string[i]);
+			switch (Parameter_Flags.valueOf(arg_string[i])) {
+			case DIMEN: {
 				try {
 					if(d_found) throw new IllegalArgumentException("can't assign more than once");
 					d_found = true;
@@ -70,7 +70,7 @@ public class SimulatorParams {
 				}
 				break;
 			}
-			case "-l":
+			case LEFT:
 				try {
 					if(l_found) throw new IllegalArgumentException("can't assign more than once");
 					l_found = true;
@@ -88,7 +88,7 @@ public class SimulatorParams {
 				}
 				break;
 				
-			case "-r":
+			case RIGHT:
 				try {
 					if(r_found) throw new IllegalArgumentException("can't assign more than once");
 					r_found = true;
@@ -106,7 +106,7 @@ public class SimulatorParams {
 				}
 				break;
 				
-			case "-t":
+			case TOP:
 				try {
 					if(t_found) throw new IllegalArgumentException("can't assign more than once");
 					t_found = true;
@@ -124,7 +124,7 @@ public class SimulatorParams {
 				}
 				break;
 				
-			case "-b":
+			case BOT:
 				try {
 					if(b_found) throw new IllegalArgumentException("can't assign more than once");
 					b_found = true;
