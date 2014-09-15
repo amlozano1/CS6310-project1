@@ -1,10 +1,12 @@
 package Tpdohp;
 
-import sun.org.mozilla.javascript.internal.Node;
+import java.util.Iterator;
+
 import common.SimulatorParams;
+import common.Simulator_Interface;
 import Tpdohp.PlateNode;
 
-public class Simulator {
+public class Simulator extends Simulator_Interface {
 
 	public PlateNode top_left;
 	public int dimen;
@@ -121,21 +123,35 @@ public class Simulator {
 		int iterations = 0;
 		boolean loop_again = true;
 		while(iterations < max_iter && loop_again == true) {
-			loop_again = false;
-			PlateNodeIter iter = top_left.iterator();
-			while(iter.hasNext()) {
-				PlateNode node = iter.next();
-				node.value = (node.above.old_value + node.below.old_value + node.left.old_value + node.right.old_value) / 4.0;
-				if(Math.abs(node.value - node.old_value) > delta) {
-					loop_again = true;
-				}
-			}
-			PlateNodeIter iter2 = top_left.iterator();
-			while(iter2.hasNext()) {
-				PlateNode node = iter2.next();
-				node.old_value = node.value;
+			loop_again = heat_once(delta);
+			update_plate();
+			iterations++;
+		}
+	}
+	
+	/**
+	 * Moves values in the node tree from node.value to node.old_value
+	 */
+	public void update_plate() {
+		PlateNodeIter iter2 = top_left.iterator();
+		while(iter2.hasNext()) {
+			PlateNode node = iter2.next();
+			node.old_value = node.value;
+		}
+	}
+	
+	public boolean heat_once(double delta) {
+		boolean loop_again = false;
+		PlateNodeIter iter = top_left.iterator();
+		while(iter.hasNext()) {
+			PlateNode node = iter.next();
+			node.value = (node.above.old_value + node.below.old_value + node.left.old_value + node.right.old_value) / 4.0;
+			if(Math.abs(node.value - node.old_value) > delta) {
+				loop_again = true;
 			}
 		}
+		update_plate();
+		return loop_again;
 	}
 	
 	/**
@@ -152,19 +168,56 @@ public class Simulator {
 	 */
 	public String toString(){
 		String as_string = "";
-		PlateNodeIter iter = top_left.iterator();
-		
+		Iterator<Number> iter = this.iterator();
+		int row_pos = 1; // iter starts from column '1' 
 		while(iter.hasNext()) {
-			PlateNode node = iter.next();
-			as_string += String.format("%2.2f", node.value);
-			if(!node.right.is_right_edge) {
-				as_string += '\t';
-			}
-			else {
+			Double value = iter.next().doubleValue();
+			as_string += String.format("%2.2f", value);
+			if(dimen-2 <= row_pos) { //dimen-2 is the size of the inner plate
+				row_pos = 1; // iter starts from column '1' 
 				as_string += '\n';
 			}
+			else {
+				row_pos++;
+				as_string += '\t';
+			}
 		}
+
 		
 		return as_string;
+//		PlateNodeIter iter = top_left.iterator();
+//		
+//		while(iter.hasNext()) {
+//			PlateNode node = iter.next();
+//			as_string += String.format("%2.2f", node.value);
+//			if(!node.right.is_right_edge) {
+//				as_string += '\t';
+//			}
+//			else {
+//				as_string += '\n';
+//			}
+//		}
+	}
+
+	interface SimulatorIterator extends java.util.Iterator<Number> {}
+	private class InnerIterator implements SimulatorIterator {
+		private PlateNodeIter iter = top_left.iterator();
+		public boolean hasNext() {
+			return iter.hasNext();
+		}
+			
+		public Double next() {
+			return iter.next().value;
+		}
+
+		public void remove() {
+			// TODO Auto-generated method stub
+			
+		}
+	}
+	
+	@Override
+	public Iterator<Number> iterator() {
+		return new InnerIterator();
 	}
 }

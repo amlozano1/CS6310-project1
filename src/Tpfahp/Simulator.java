@@ -1,11 +1,14 @@
 package Tpfahp;
 
-import common.SimulatorParams;
+import java.util.Iterator;
 
-public class Simulator {
+import common.SimulatorParams;
+import common.Array_Simulator;
+
+public class Simulator extends Array_Simulator{
 
 	public float [][] plate;
-	public int dimen;
+	public float [][] old_plate;
 	/**
 	 * If dimen is 3, Creates a new plate like:
 	 * ----------x----------->
@@ -27,22 +30,28 @@ public class Simulator {
 	public Simulator(int startDimen, float top, float bottom, float left, float right) {
 		dimen = startDimen + 2; //need room in each dimension for the edges
 		plate = new float[dimen][dimen];
+		old_plate = new float[dimen][dimen];
 		for(int y=0; y < dimen; y++) {
 			for(int x=0; x < dimen; x++) {
 				if(0 == y) { //This means top edge of the plate
-					plate[y][x] = top; 
+					plate[y][x] = top;
+					old_plate[y][x] = top;
 				}
 				else if(0 == x) { // This means left edge of the plate
 					plate[y][x] = left;
+					old_plate[y][x] = left;
 				}
 				else if(dimen-1 == y) { // This means bottom edge of the plate
 					plate[y][x] = bottom;
+					old_plate[y][x] = bottom;
 				}
 				else if(dimen-1 == x) { // This means right edge of the plate
 					plate[y][x] = right;
+					old_plate[y][x] = right;
 				}
 				else { //not on an edge
 					plate[y][x] = (float)0.0;
+					old_plate[y][x] = (float)0.0;
 				}
 			}
 		}
@@ -81,20 +90,29 @@ public class Simulator {
 		int iterations = 0;
 		boolean loop_again = true;
 		while(iterations < max_iter && loop_again == true) {
-			loop_again = false; //assume we will not loop again
-			Simulator old_sim = new Simulator(this);
-			for(int x=1; x < dimen-1; x++) { 
-				for(int y=1; y < dimen-1; y++) { 
-					plate[x][y] = (old_sim.plate[x + 1][y] + old_sim.plate[x - 1][y] +
-                            old_sim.plate[x][y + 1] + old_sim.plate[x][y - 1]) / (float)4.0;
-					if(Math.abs(plate[x][y] - old_sim.plate[x][y]) > delta)
-					{
-						loop_again = true;
-					}
-				}
-			}
+			loop_again = heat_once(delta);
+			iterations++;
 		}
 	}
+		
+		
+//		int iterations = 0;
+//		boolean loop_again = true;
+//		while(iterations < max_iter && loop_again == true) {
+//			loop_again = false; //assume we will not loop again
+//			Simulator old_sim = new Simulator(this);
+//			for(int x=1; x < dimen-1; x++) { 
+//				for(int y=1; y < dimen-1; y++) { 
+//					plate[x][y] = (old_sim.plate[x + 1][y] + old_sim.plate[x - 1][y] +
+//                            old_sim.plate[x][y + 1] + old_sim.plate[x][y - 1]) / (float)4.0;
+//					if(Math.abs(plate[x][y] - old_sim.plate[x][y]) > delta)
+//					{
+//						loop_again = true;
+//					}
+//				}
+//			}
+//		}
+//	}
 	
 	/**
 	 * Calls heat() with max_iter = 10000 and delta = .01
@@ -105,22 +123,57 @@ public class Simulator {
 		heat(max_iter, delta);
 	}
 	
-	/**
-	 * Returns a string representation of the plate, not including the edges.
-	 */
-	public String toString(){
-		String as_string = "";
-		
-		// do not include edges of plate in loop
+//	/**
+//	 * Returns a string representation of the plate, not including the edges.
+//	 */
+//	public String toString(){
+//		String as_string = "";
+//		
+//		// do not include edges of plate in loop
+//		for(int x=1; x < dimen-1; x++) { 
+//			for(int y=1; y < dimen-1; y++) { 
+//				if( 1 != y) { // if this is not the first print for the row...
+//					as_string += '\t'; // add a tab before the number
+//				}
+//				as_string += String.format("%2.2f", plate[x][y]);
+//			}
+//			as_string += '\n';
+//		}
+//		return as_string;
+//	}
+
+	@Override
+	public boolean heat_once(double delta) {
+		boolean loop_again = false; // start hoping we don't need to loop again
 		for(int x=1; x < dimen-1; x++) { 
 			for(int y=1; y < dimen-1; y++) { 
-				if( 1 != y) { // if this is not the first print for the row...
-					as_string += '\t'; // add a tab before the number
+				plate[x][y] = (old_plate[x + 1][y] + old_plate[x - 1][y] +
+                        old_plate[x][y + 1] + old_plate[x][y - 1]) / (float)4.0;
+				if(Math.abs(plate[x][y] - old_plate[x][y]) > delta)
+				{
+					loop_again = true; // we need to loop again.
 				}
-				as_string += String.format("%2.2f", plate[x][y]);
 			}
-			as_string += '\n';
 		}
-		return as_string;
+		swap();
+		return loop_again;
+	}
+	
+	public void swap() {
+		float[][] plate_swap;
+		plate_swap = plate;
+		plate = old_plate;
+		old_plate = plate_swap;
+	}
+	
+	@Override
+	public Float[][] getPlate() {
+		Float[][] return_plate = new Float[dimen][dimen];
+		for(int x=1; x < dimen-1; x++) { 
+			for(int y=1; y < dimen-1; y++) {
+				return_plate[x][y] = Float.valueOf( plate[x][y]);
+			}
+		}
+		return return_plate;
 	}
 }
