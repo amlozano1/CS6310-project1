@@ -9,7 +9,6 @@ public class Simulator extends Array_Simulator{
 
 	public float [][] plate;
 	public float [][] old_plate;
-	public int dimen;
 	/**
 	 * If dimen is 3, Creates a new plate like:
 	 * ----------x----------->

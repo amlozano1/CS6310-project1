@@ -150,6 +150,7 @@ public class Simulator extends Simulator_Interface {
 				loop_again = true;
 			}
 		}
+		update_plate();
 		return loop_again;
 	}
 	
@@ -167,10 +168,10 @@ public class Simulator extends Simulator_Interface {
 	 */
 	public String toString(){
 		String as_string = "";
-		Iterator<Double> iter = this.iterator();
+		Iterator<Number> iter = this.iterator();
 		int row_pos = 1; // iter starts from column '1' 
 		while(iter.hasNext()) {
-			Double value = iter.next();
+			Double value = iter.next().doubleValue();
 			as_string += String.format("%2.2f", value);
 			if(dimen-2 <= row_pos) { //dimen-2 is the size of the inner plate
 				row_pos = 1; // iter starts from column '1' 
@@ -198,7 +199,7 @@ public class Simulator extends Simulator_Interface {
 //		}
 	}
 
-	interface SimulatorIterator extends java.util.Iterator<Double> {}
+	interface SimulatorIterator extends java.util.Iterator<Number> {}
 	private class InnerIterator implements SimulatorIterator {
 		private PlateNodeIter iter = top_left.iterator();
 		public boolean hasNext() {
@@ -216,7 +217,7 @@ public class Simulator extends Simulator_Interface {
 	}
 	
 	@Override
-	public Iterator<Double> iterator() {
+	public Iterator<Number> iterator() {
 		return new InnerIterator();
 	}
 }

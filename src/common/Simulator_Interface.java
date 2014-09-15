@@ -21,10 +21,10 @@ public class Simulator_Interface implements SimulatorIterator, Iterable{
 	 */
 	public String toString(){
 		String as_string = "";
-		Iterator<Double> iter = this.iterator();
+		Iterator<Number> iter = this.iterator();
 		int row_pos = 1; // iter starts from column '1' 
 		while(iter.hasNext()) {
-			Double value = iter.next();
+			Number value = iter.next();
 			as_string += String.format("%2.2f", value);
 			if(dimen-2 <= row_pos) { //dimen-2 is the size of the inner plate
 				row_pos = 1; // iter starts from column '1' 
@@ -57,7 +57,7 @@ public class Simulator_Interface implements SimulatorIterator, Iterable{
 	}
 
 	@Override
-	public Iterator<Double> iterator() {
+	public Iterator<Number> iterator() {
 		// TODO Auto-generated method stub
 		return null;
 	}

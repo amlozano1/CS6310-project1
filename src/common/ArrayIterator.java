@@ -4,7 +4,7 @@ import java.util.Iterator;
 
 import common.Simulator_Interface;
 
-public class ArrayIterator implements Iterator<Double> {
+public class ArrayIterator implements Iterator<Number> {
 	private int i = 1;
 	private int j = 1;
 	Array_Simulator sim;
@@ -18,9 +18,9 @@ public class ArrayIterator implements Iterator<Double> {
 		return j < sim.dimen-1;
 	}
 		
-	public Double next() {
-		Double ret_val = null;
-		ret_val = (Double)plate[j][i];
+	public Number next() {
+		Number ret_val = null;
+		ret_val = plate[j][i];
 		i++;
 		if(i >= sim.dimen-1) {
 			j++;

@@ -86,11 +86,12 @@ public class DrawnGrid extends JPanel {
         BufferedImage bi = new BufferedImage(getWidth(), getHeight(),
                 BufferedImage.TYPE_INT_ARGB);
         Graphics anotherGraphics = bi.createGraphics();
-        Double temp_val;
-        Iterator<Double> iter = simulator.iterator();
+        float temp_val; //red colors are expressed as floats
+        Iterator<Number> iter = simulator.iterator();
         for (int i = 0; i < row_count; i++) {
             for (int j = 0; j < col_count; j++){
-            	temp_val = iter.next() * .01; //normalize from 0-100 to 0-1
+            	Number next = iter.next();
+            	temp_val = next.floatValue() * .01f; //normalize from 0-100 to 0-1
                 paintSpot(anotherGraphics, i, j, temp_val);
             }
     	}

@@ -19,8 +19,7 @@ public class Array_Simulator extends Simulator_Interface implements Iterable{
 		return plate;
 	}
 	
-	public Iterator<Double> iterator() {
-		// TODO Auto-generated method stub
+	public Iterator<Number> iterator() {
 		return new ArrayIterator(this);
 	}
 

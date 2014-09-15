@@ -38,6 +38,8 @@ public class Demo{
 	private DrawnGrid drawnGrid;
 	private Timer animation_timer;
 	private ActionListener play;
+	private int iterations;
+	JLabel iter_label;
 
 	/**
 	 * Launch the application.
@@ -98,7 +100,7 @@ public class Demo{
 		panel.add(label, gbc_label);
 		
 		spinner_dimen = new JSpinner();
-		spinner_dimen.setModel(new SpinnerNumberModel(3, 0, 100, 1));
+		spinner_dimen.setModel(new SpinnerNumberModel(15, 0, 100, 1));
 		GridBagConstraints gbc_spinner_dimen = new GridBagConstraints();
 		gbc_spinner_dimen.fill = GridBagConstraints.HORIZONTAL;
 		gbc_spinner_dimen.insets = new Insets(0, 0, 5, 0);
@@ -194,12 +196,12 @@ public class Demo{
 		gbc_label_6.gridy = 6;
 		panel.add(label_6, gbc_label_6);
 		
-		JLabel label_7 = new JLabel("0");
-		GridBagConstraints gbc_label_7 = new GridBagConstraints();
-		gbc_label_7.insets = new Insets(0, 0, 5, 0);
-		gbc_label_7.gridx = 1;
-		gbc_label_7.gridy = 6;
-		panel.add(label_7, gbc_label_7);
+		iter_label = new JLabel("0");
+		GridBagConstraints gbc_iter_label = new GridBagConstraints();
+		gbc_iter_label.insets = new Insets(0, 0, 5, 0);
+		gbc_iter_label.gridx = 1;
+		gbc_iter_label.gridy = 6;
+		panel.add(iter_label, gbc_iter_label);
 		
 		JLabel label_8 = new JLabel("Speed");
 		GridBagConstraints gbc_label_8 = new GridBagConstraints();
@@ -248,8 +250,10 @@ public class Demo{
 		@Override
         public void actionPerformed(ActionEvent e) {
 			boolean heating_done = !drawnGrid.simulator.heat_once(.01);
+			iterations++;
+			iter_label.setText(String.valueOf(iterations));
 			drawnGrid.repaint();
-			System.out.println("Tried to repaint.");
+			System.out.println("Heating Done: " + heating_done);
 			if(heating_done && checkBox.isSelected())
 			{
 				play.actionPerformed(e);
@@ -299,9 +303,12 @@ public class Demo{
 			frame.getContentPane().add(drawnGrid, gbc_drawnGrid);
 			frame.getContentPane().revalidate();
 			drawnGrid.repaint();
+			iterations = 0;
 			animation_timer = new Timer(speed_ms, null);
 			animation_timer.addActionListener(new AnimationListener());
+			animation_timer.setCoalesce(false); //if there already is a trigger in the event loop, don't trigger again.
 			animation_timer.start();
+			
 		}
 	};
 }
