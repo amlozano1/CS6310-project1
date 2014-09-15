@@ -307,7 +307,7 @@ public class Demo{
 			gbc_drawnGrid.gridx = 1;
 			gbc_drawnGrid.gridy = 0;
 			frame.getContentPane().add(drawnGrid, gbc_drawnGrid);
-			frame.getContentPane().revalidate();
+			frame.getContentPane().validate();
 			drawnGrid.repaint();
 			iterations = 0;
 			
