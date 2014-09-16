@@ -34,7 +34,7 @@ public class Demo{
 	private JSpinner spinner_bot;
 	private JSpinner spinner_left;
 	private JSpinner spinner_right;
-	private JComboBox<common.Simulator_Types> SimType_comboBox;
+	private JComboBox SimType_comboBox;
 	private JSlider speed_slider;
 	private JCheckBox checkBox;
 	private DrawnGrid drawnGrid;
@@ -183,8 +183,8 @@ public class Demo{
 		gbc_label_5.gridy = 5;
 		panel.add(label_5, gbc_label_5);
 		
-		SimType_comboBox = new JComboBox<common.Simulator_Types>();
-		SimType_comboBox.setModel(new DefaultComboBoxModel<common.Simulator_Types>(Simulator_Types.values()));
+		SimType_comboBox = new JComboBox();
+		SimType_comboBox.setModel(new DefaultComboBoxModel(Simulator_Types.values()));
 		GridBagConstraints gbc_SimType_comboBox = new GridBagConstraints();
 		gbc_SimType_comboBox.fill = GridBagConstraints.HORIZONTAL;
 		gbc_SimType_comboBox.insets = new Insets(0, 0, 5, 0);
