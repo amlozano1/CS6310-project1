@@ -1,7 +1,5 @@
 package Twdahp;
 
-import java.util.Iterator;
-
 import common.SimulatorParams;
 import common.Array_Simulator;
 

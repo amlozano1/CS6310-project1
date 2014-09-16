@@ -1,8 +1,8 @@
 /**
  * 
  */
-package Tpfahp;
-import Tpfahp.Simulator;
+package Twfahp;
+import Twfahp.Simulator;
 import common.SimulatorParams;
 /**
  * @author Anthony

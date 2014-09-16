@@ -1,7 +1,5 @@
 package Tpfahp;
 
-import java.util.Iterator;
-
 import common.SimulatorParams;
 import common.Array_Simulator;
 
@@ -94,25 +92,6 @@ public class Simulator extends Array_Simulator{
 			iterations++;
 		}
 	}
-		
-		
-//		int iterations = 0;
-//		boolean loop_again = true;
-//		while(iterations < max_iter && loop_again == true) {
-//			loop_again = false; //assume we will not loop again
-//			Simulator old_sim = new Simulator(this);
-//			for(int x=1; x < dimen-1; x++) { 
-//				for(int y=1; y < dimen-1; y++) { 
-//					plate[x][y] = (old_sim.plate[x + 1][y] + old_sim.plate[x - 1][y] +
-//                            old_sim.plate[x][y + 1] + old_sim.plate[x][y - 1]) / (float)4.0;
-//					if(Math.abs(plate[x][y] - old_sim.plate[x][y]) > delta)
-//					{
-//						loop_again = true;
-//					}
-//				}
-//			}
-//		}
-//	}
 	
 	/**
 	 * Calls heat() with max_iter = 10000 and delta = .01
@@ -122,25 +101,6 @@ public class Simulator extends Array_Simulator{
 		float delta = (float).01;
 		heat(max_iter, delta);
 	}
-	
-//	/**
-//	 * Returns a string representation of the plate, not including the edges.
-//	 */
-//	public String toString(){
-//		String as_string = "";
-//		
-//		// do not include edges of plate in loop
-//		for(int x=1; x < dimen-1; x++) { 
-//			for(int y=1; y < dimen-1; y++) { 
-//				if( 1 != y) { // if this is not the first print for the row...
-//					as_string += '\t'; // add a tab before the number
-//				}
-//				as_string += String.format("%2.2f", plate[x][y]);
-//			}
-//			as_string += '\n';
-//		}
-//		return as_string;
-//	}
 
 	@Override
 	public boolean heat_once(double delta) {

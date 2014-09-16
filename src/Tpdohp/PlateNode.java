@@ -1,6 +1,5 @@
 package Tpdohp;
 
-import java.util.Iterator;
 import Tpdohp.PlateNodeIter;
 /**
  * The most basic of

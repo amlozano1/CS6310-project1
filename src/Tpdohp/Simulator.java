@@ -9,7 +9,6 @@ import Tpdohp.PlateNode;
 public class Simulator extends Simulator_Interface {
 
 	public PlateNode top_left;
-	public int dimen;
 	/**
 	 * If dimen is 3, Creates a new plate like: 
 	 * (t_l = top_left and has value 'top')
@@ -161,42 +160,6 @@ public class Simulator extends Simulator_Interface {
 		int max_iter = 10000;
 		double delta = .01;
 		heat(max_iter, delta);
-	}
-	
-	/**
-	 * Returns a string representation of the plate, not including the edges.
-	 */
-	public String toString(){
-		String as_string = "";
-		Iterator<Number> iter = this.iterator();
-		int row_pos = 1; // iter starts from column '1' 
-		while(iter.hasNext()) {
-			Double value = iter.next().doubleValue();
-			as_string += String.format("%2.2f", value);
-			if(dimen-2 <= row_pos) { //dimen-2 is the size of the inner plate
-				row_pos = 1; // iter starts from column '1' 
-				as_string += '\n';
-			}
-			else {
-				row_pos++;
-				as_string += '\t';
-			}
-		}
-
-		
-		return as_string;
-//		PlateNodeIter iter = top_left.iterator();
-//		
-//		while(iter.hasNext()) {
-//			PlateNode node = iter.next();
-//			as_string += String.format("%2.2f", node.value);
-//			if(!node.right.is_right_edge) {
-//				as_string += '\t';
-//			}
-//			else {
-//				as_string += '\n';
-//			}
-//		}
 	}
 
 	interface SimulatorIterator extends java.util.Iterator<Number> {}

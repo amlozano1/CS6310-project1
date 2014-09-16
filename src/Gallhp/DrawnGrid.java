@@ -1,13 +1,11 @@
 package Gallhp;
 
 import javax.swing.JPanel;
-import javax.swing.JFrame;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
-import java.lang.Math;
 import java.util.Iterator;
 
 import common.Simulator_Interface;

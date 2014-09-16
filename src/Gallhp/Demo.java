@@ -1,8 +1,6 @@
 package Gallhp;
 
-import java.awt.Checkbox;
 import java.awt.EventQueue;
-import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -232,7 +230,6 @@ public class Demo{
 		gbc_checkBox.gridy = 8;
 		panel.add(checkBox, gbc_checkBox);
 		
-		Simulator_Types selectedItem = (Simulator_Types) SimType_comboBox.getSelectedItem();
 		int dimen = 3;
 		Simulator_Interface sim_interface = new Twdahp.Simulator(3, 0., 0., 0., 0.);
 		drawnGrid = new DrawnGrid(0, 0, 0, 0, dimen, dimen, sim_interface);
@@ -291,6 +288,10 @@ public class Demo{
 			}
 			else if(Simulator_Types.Tpfahp == selectedItem) {
 				Tpfahp.Simulator sim_interface = new Tpfahp.Simulator(dimen, top.floatValue(), bot.floatValue(), left.floatValue(), right.floatValue());
+				drawnGrid = new DrawnGrid(0, 0, 0, 0, dimen, dimen, sim_interface);
+			}
+			else if(Simulator_Types.Twfahp == selectedItem) {
+				Twfahp.Simulator sim_interface = new Twfahp.Simulator(dimen, top, bot, left, right);
 				drawnGrid = new DrawnGrid(0, 0, 0, 0, dimen, dimen, sim_interface);
 			}
 			else if(Simulator_Types.Tpdohp == selectedItem) {

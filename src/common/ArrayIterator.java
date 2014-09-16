@@ -2,8 +2,6 @@ package common;
 
 import java.util.Iterator;
 
-import common.Simulator_Interface;
-
 public class ArrayIterator implements Iterator<Number> {
 	private int i = 1;
 	private int j = 1;

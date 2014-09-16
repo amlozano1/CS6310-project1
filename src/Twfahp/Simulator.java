@@ -1,13 +1,12 @@
-package Tpdahp;
+package Twfahp;
 
 import common.SimulatorParams;
 import common.Array_Simulator;
 
 public class Simulator extends Array_Simulator{
 
-	public double [][] plate;
-	public double [][] old_plate;
-
+	public Float [][] plate;
+	public Float [][] old_plate;
 	/**
 	 * If dimen is 3, Creates a new plate like:
 	 * ----------x----------->
@@ -26,34 +25,49 @@ public class Simulator extends Array_Simulator{
 	 * @param left
 	 * @param right
 	 */
-	public Simulator(int startDimen, double top, double bottom, double left, double right) {
+	public Simulator(int startDimen, Double top, Double bottom, Double left, Double right) {
 		dimen = startDimen + 2; //need room in each dimension for the edges
-		plate = new double[dimen][dimen];
-		old_plate = new double[dimen][dimen];
+		plate = new Float[dimen][dimen];
+		old_plate = new Float[dimen][dimen];
 		for(int y=0; y < dimen; y++) {
 			for(int x=0; x < dimen; x++) {
 				if(0 == y) { //This means top edge of the plate
-					plate[y][x] = top; 
-					old_plate[y][x] = top;
+					plate[y][x] = top.floatValue();
+					old_plate[y][x] = top.floatValue();
 				}
 				else if(0 == x) { // This means left edge of the plate
-					plate[y][x] = left;
-					old_plate[y][x] = left;
+					plate[y][x] = left.floatValue();
+					old_plate[y][x] = left.floatValue();
 				}
 				else if(dimen-1 == y) { // This means bottom edge of the plate
-					plate[y][x] = bottom;
-					old_plate[y][x] = bottom;
+					plate[y][x] = bottom.floatValue();
+					old_plate[y][x] = bottom.floatValue();
 				}
 				else if(dimen-1 == x) { // This means right edge of the plate
-					plate[y][x] = right;
-					old_plate[y][x] = right;
+					plate[y][x] = right.floatValue();
+					old_plate[y][x] = right.floatValue();
 				}
 				else { //not on an edge
-					plate[y][x] = 0.0;
-					old_plate[y][x] = 0.0;
+					plate[y][x] = (Float)0.0f;
+					old_plate[y][x] = (Float)0.0f;
 				}
 			}
 		}
+	}
+	
+	/**
+	 * Copies a simulator object
+	 * @param simulator The simulator to copy 
+	 */
+	public Simulator(Simulator simulator) {
+		dimen = simulator.dimen;
+		plate = new Float[dimen][dimen];
+		for(int y=0; y < dimen; y++) {
+			for(int x=0; x < dimen; x++) {
+				plate[x][y] = simulator.plate[x][y];
+			}
+		}
+		
 	}
 	
 	/**
@@ -70,7 +84,7 @@ public class Simulator extends Array_Simulator{
 	 * 	terminate if max_iter is exceeded. If <=0, this value is ignored. 
 	 * @param delta If the no points in the plate change by at least this value
 	 */
-	public void heat(int max_iter, double delta) {
+	public void heat(int max_iter, float delta) {
 		int iterations = 0;
 		boolean loop_again = true;
 		while(iterations < max_iter && loop_again == true) {
@@ -79,13 +93,22 @@ public class Simulator extends Array_Simulator{
 		}
 	}
 	
+	/**
+	 * Calls heat() with max_iter = 10000 and delta = .01
+	 */
+	public void heat() {
+		int max_iter = 10000;
+		float delta = (float).01;
+		heat(max_iter, delta);
+	}
+
 	@Override
 	public boolean heat_once(double delta) {
 		boolean loop_again = false; // start hoping we don't need to loop again
 		for(int x=1; x < dimen-1; x++) { 
 			for(int y=1; y < dimen-1; y++) { 
 				plate[x][y] = (old_plate[x + 1][y] + old_plate[x - 1][y] +
-                        old_plate[x][y + 1] + old_plate[x][y - 1]) / 4.0;
+                        old_plate[x][y + 1] + old_plate[x][y - 1]) / (float)4.0;
 				if(Math.abs(plate[x][y] - old_plate[x][y]) > delta)
 				{
 					loop_again = true; // we need to loop again.
@@ -97,27 +120,18 @@ public class Simulator extends Array_Simulator{
 	}
 	
 	public void swap() {
-		double[][] plate_swap;
+		Float[][] plate_swap;
 		plate_swap = plate;
 		plate = old_plate;
 		old_plate = plate_swap;
 	}
 	
-	/**
-	 * Calls heat() with max_iter = 10000 and delta = .01
-	 */
-	public void heat() {
-		int max_iter = 10000;
-		double delta = .1;
-		heat(max_iter, delta);
-	}
-	
 	@Override
-	public Double[][] getPlate() {
-		Double[][] return_plate = new Double[dimen][dimen];
+	public Float[][] getPlate() {
+		Float[][] return_plate = new Float[dimen][dimen];
 		for(int x=1; x < dimen-1; x++) { 
 			for(int y=1; y < dimen-1; y++) {
-				return_plate[x][y] = Double.valueOf( plate[x][y]);
+				return_plate[x][y] = Float.valueOf( plate[x][y]);
 			}
 		}
 		return return_plate;
