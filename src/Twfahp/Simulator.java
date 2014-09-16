@@ -5,7 +5,7 @@ import common.Array_Simulator;
 
 /**
  * @author Anthony
- * This class implements an array based warapped float heated plate
+ * This class implements an array based wrapped float heated plate
  * simulation.
  */
 public class Simulator extends Array_Simulator{
