@@ -4,9 +4,18 @@ import java.util.Iterator;
 
 interface SimulatorIterator extends java.util.Iterator<Double> {};
 
-public class Simulator_Interface implements SimulatorIterator, Iterable{
+/**
+ * @author Anthony
+ * This is the main interface for all Simulators. A child class must override 
+ * the heat_once method, must provide an iterator method, and must be iterable.
+ */
+public class Simulator_Interface implements SimulatorIterator, Iterable<Number>{
 
+	/**
+	 * The length of one edge of the plate
+	 */
 	protected int dimen;
+	
 	/**
 	 * Must override this
 	 * heats the plate once, updating all values to the value they would have on

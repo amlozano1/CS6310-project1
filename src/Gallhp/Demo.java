@@ -22,6 +22,10 @@ import javax.swing.Timer;
 import common.Simulator_Interface;
 import common.Simulator_Types;
 
+/**
+ * @author Anthony
+ * The main class for the GUI, sets up the GUI and handles animation timers.
+ */
 public class Demo{
 
 	private JFrame frame;
@@ -30,7 +34,7 @@ public class Demo{
 	private JSpinner spinner_bot;
 	private JSpinner spinner_left;
 	private JSpinner spinner_right;
-	private JComboBox SimType_comboBox;
+	private JComboBox<common.Simulator_Types> SimType_comboBox;
 	private JSlider speed_slider;
 	private JCheckBox checkBox;
 	private DrawnGrid drawnGrid;
@@ -41,6 +45,7 @@ public class Demo{
 
 	/**
 	 * Launch the application.
+	 * @param args Ignored
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -178,8 +183,8 @@ public class Demo{
 		gbc_label_5.gridy = 5;
 		panel.add(label_5, gbc_label_5);
 		
-		SimType_comboBox = new JComboBox();
-		SimType_comboBox.setModel(new DefaultComboBoxModel(Simulator_Types.values()));
+		SimType_comboBox = new JComboBox<common.Simulator_Types>();
+		SimType_comboBox.setModel(new DefaultComboBoxModel<common.Simulator_Types>(Simulator_Types.values()));
 		GridBagConstraints gbc_SimType_comboBox = new GridBagConstraints();
 		gbc_SimType_comboBox.fill = GridBagConstraints.HORIZONTAL;
 		gbc_SimType_comboBox.insets = new Insets(0, 0, 5, 0);
@@ -248,6 +253,11 @@ public class Demo{
 		button.addActionListener(play);
 	}
 	
+	/**
+	 * @author Anthony
+	 * This listener heats the plate and updates the GUI afterwards. It then
+	 * checks to see if it should stop or loop the animation.
+	 */
 	public class AnimationListener implements ActionListener {
 		@Override
         public void actionPerformed(ActionEvent e) {
@@ -267,6 +277,11 @@ public class Demo{
         }
 	}
 	
+	/**
+	 * @author Anthony
+	 * This listeners grabs all the inputs from various controls and starts the
+	 * animation timer.
+	 */
 	public class PlayListener implements ActionListener {
 		
 		@Override

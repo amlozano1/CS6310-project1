@@ -3,10 +3,23 @@ package Twdahp;
 import common.SimulatorParams;
 import common.Array_Simulator;
 
+/**
+ * @author Anthony
+ * This class implements an array based wrapped double heated plate
+ * simulation.
+ */
 public class Simulator extends Array_Simulator{
 
+	/**
+	 * Stores the current temperature values of the lattice.
+	 */
 	public Double [][] plate;
+	
+	/**
+	 * Stores the old temperature values of the lattice.
+	 */
 	public Double [][] old_plate;
+	
 	/**
 	 * If dimen is 3, Creates a new plate like:
 	 * ----------x----------->
@@ -19,11 +32,11 @@ public class Simulator extends Array_Simulator{
 	 * @Note The corners do not matter as we skip the edges in the heat method.
 	 * 
 	 * plate[x][y]
-	 * @param dimen
-	 * @param top
-	 * @param bottom
-	 * @param left
-	 * @param right
+	 * @param startDimen the length of the plate, not including edges.
+	 * @param top the top edge temperature of the plate.
+	 * @param bottom the bottom edge temperature of the plate.
+	 * @param left the left edge temperature of the plate.
+	 * @param right the right edge temperature of the plate.
 	 */
 	public Simulator(int startDimen, Double top, Double bottom, Double left, Double right) {
 		dimen = startDimen + 2; //need room in each dimension for the edges
@@ -137,7 +150,10 @@ public class Simulator extends Array_Simulator{
 		swap();
 		return loop_again;
 	}
-	
+
+	/**
+	 * Swaps the old_plate and plate to prepare for next iteration.
+	 */
 	public void swap() {
 		Double[][] plate_swap;
 		plate_swap = plate;

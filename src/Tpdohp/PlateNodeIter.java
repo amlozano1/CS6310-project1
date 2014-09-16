@@ -3,6 +3,12 @@ package Tpdohp;
 import java.util.Iterator;
 import Tpdohp.PlateNode;
 
+/**
+ * This class implements an iterator for plate nodes. It starts below and to the
+ * right of the node that was passed to its constructor.
+ * @author Anthony
+ *
+ */
 public class PlateNodeIter implements Iterator<PlateNode> {
 	PlateNode row;
 	PlateNode current;

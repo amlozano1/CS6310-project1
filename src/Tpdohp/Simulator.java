@@ -6,9 +6,19 @@ import common.SimulatorParams;
 import common.Simulator_Interface;
 import Tpdohp.PlateNode;
 
+/**
+ * @author Anthony
+ * This class implements an object web primitive double heated plate
+ * simulation.
+ */
 public class Simulator extends Simulator_Interface {
 
+	/**
+	 * Reference to the top left node of the plate, used as an entry point for 
+	 * iterating over the plate.
+	 */
 	public PlateNode top_left;
+	
 	/**
 	 * If dimen is 3, Creates a new plate like: 
 	 * (t_l = top_left and has value 'top')
@@ -23,11 +33,11 @@ public class Simulator extends Simulator_Interface {
 	 * @Note The corners do not matter as we skip the edges in the heat method.
 	 * @Note bottom nodes and right nodes serve as sentinels, and as such are
 	 *   tracked.
-	 * @param dimen
-	 * @param top
-	 * @param bottom
-	 * @param left
-	 * @param right
+	 * @param startDimen the length of the plate, not including edges.
+	 * @param top the top edge temperature of the plate.
+	 * @param bottom the bottom edge temperature of the plate.
+	 * @param left the left edge temperature of the plate.
+	 * @param right the right edge temperature of the plate.
 	 */
 	public Simulator(int startDimen, double top, double bottom, double left, double right) {
 		dimen = startDimen + 2; //need room in each dimension for the edges

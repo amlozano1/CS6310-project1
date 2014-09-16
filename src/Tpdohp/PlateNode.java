@@ -6,7 +6,7 @@ import Tpdohp.PlateNodeIter;
  * @author Anthony
  *
  */
-public class PlateNode implements Iterable {
+public class PlateNode implements Iterable<PlateNode> {
 	PlateNode above;
 	PlateNode below;
 	PlateNode left;

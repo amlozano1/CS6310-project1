@@ -1,10 +1,34 @@
 package common;
 
+/**
+ * @author Anthony
+ * This enum stores the different flags that can be passed to the command line
+ * programs.
+ */
 public enum Parameter_Flags {
+	/**
+	 * The flag for the length of one edge of the plate
+	 */
 	DIMEN("-d"),
+	
+	/**
+	 * The flag for the top edge temperature.
+	 */
 	TOP("-t"),
+
+	/**
+	 * The flag for the bottom edge temperature.
+	 */
 	BOT("-b"),
+
+	/**
+	 * The flag for the left edge temperature.
+	 */
 	LEFT("-l"),
+
+	/**
+	 * The flag for the right edge temperature.
+	 */
 	RIGHT("-r");
 	
 	private final String text;
@@ -21,10 +45,15 @@ public enum Parameter_Flags {
         return text;
     }
     
-    public static Parameter_Flags fromString(String text) {
-        if (text != null) {
+    /**
+     * Takes a command line flag and returns the enum value.
+     * @param flag The command line flag.
+     * @return an enum value.
+     */
+    public static Parameter_Flags fromString(String flag) {
+        if (flag != null) {
           for (Parameter_Flags b : Parameter_Flags.values()) {
-            if (text.equalsIgnoreCase(b.text)) {
+            if (flag.equalsIgnoreCase(b.text)) {
               return b;
             }
           }

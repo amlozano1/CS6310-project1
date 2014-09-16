@@ -19,6 +19,11 @@ import common.Simulator_Interface;
 public class DrawnGrid extends JPanel {
 
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
      * Creates a DrawnGrid, which is a displayable rectangle.  
      * All units are in pixels.
      *
@@ -28,6 +33,9 @@ public class DrawnGrid extends JPanel {
      *                 rectangle within the containing widget
      * @param w width of the rectangle
      * @param h height of the rectangle
+	 * @param num_rows number of rows to render
+	 * @param num_cols number of columns to render
+	 * @param sim a simulator to iterate over, fetching temperature values.
      */
     public DrawnGrid(int x, int y, int w, int h, int num_rows, int num_cols, Simulator_Interface sim) {
         ulhcX = x;

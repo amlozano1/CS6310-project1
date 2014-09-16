@@ -10,10 +10,29 @@ import common.Parameter_Flags;
  *
  */
 public class SimulatorParams {
+	/**
+	 * The top edge temperature.
+	 */
 	public Double top;
+	
+	/**
+	 * The bottom edge temperature.
+	 */
 	public Double bottom;
+	
+	/**
+	 * The left edge temperature.
+	 */
 	public Double left;
+	
+	/**
+	 * The right edge temperature.
+	 */
 	public Double right;
+	
+	/**
+	 * The length of one edge of the plate.
+	 */
 	public int dimen;
 	
 	/**

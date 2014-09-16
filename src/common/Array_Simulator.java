@@ -2,7 +2,12 @@ package common;
 
 import java.util.Iterator;
 
-public class Array_Simulator extends Simulator_Interface implements Iterable{
+/**
+ * @author Anthony
+ * This is the parent class for all simulators that store their lattice as a two
+ * dimensional array.s
+ */
+public class Array_Simulator extends Simulator_Interface {
 
 	/**
 	 * plate doesn't have to be a "Double", you can override this but we do 
