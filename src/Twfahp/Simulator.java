@@ -104,6 +104,7 @@ public class Simulator extends Array_Simulator{
 			loop_again = heat_once(delta);
 			iterations++;
 		}
+		System.out.print(iterations); //instrumentation code
 	}
 	
 	/**

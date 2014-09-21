@@ -136,6 +136,7 @@ public class Simulator extends Simulator_Interface {
 			update_plate();
 			iterations++;
 		}
+		System.out.print(iterations); //instrumentation code
 	}
 	
 	/**

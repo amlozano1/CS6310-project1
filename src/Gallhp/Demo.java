@@ -28,31 +28,47 @@ import common.Simulator_Types;
  */
 public class Demo{
 
-	private JFrame frame;
-	private JSpinner spinner_dimen;
-	private JSpinner spinner_top;
-	private JSpinner spinner_bot;
-	private JSpinner spinner_left;
-	private JSpinner spinner_right;
-	private JComboBox SimType_comboBox;
-	private JSlider speed_slider;
-	private JCheckBox checkBox;
-	private DrawnGrid drawnGrid;
-	private Timer animation_timer;
-	private ActionListener play;
-	private int iterations;
+	public JFrame frame;
+	public JSpinner spinner_dimen;
+	public JSpinner spinner_top;
+	public JSpinner spinner_bot;
+	public JSpinner spinner_left;
+	public JSpinner spinner_right;
+	public JComboBox SimType_comboBox;
+	public JButton button;
+	public JSlider speed_slider;
+	public JCheckBox checkBox;
+	public DrawnGrid drawnGrid;
+	public Timer animation_timer;
+	public ActionListener play;
+	public int iterations;
+	public long startTime;
 	JLabel iter_label;
 
 	/**
 	 * Launch the application.
 	 * @param args Ignored
 	 */
-	public static void main(String[] args) {
+	public static void main(final String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					Demo window = new Demo();
 					window.frame.setVisible(true);
+					int dimen = Integer.parseInt(args[0]);
+					Double top = Double.parseDouble(args[1]);
+					Double bot = Double.parseDouble(args[2]);
+					Double left = Double.parseDouble(args[3]);
+					Double right = Double.parseDouble(args[4]);
+					int comboPos = Integer.parseInt(args[5]);
+					window.SimType_comboBox.setSelectedIndex(comboPos);
+					window.spinner_dimen.setValue(dimen);
+					window.spinner_top.setValue(top);
+					window.spinner_bot.setValue(bot);
+					window.spinner_left.setValue(left);
+					window.spinner_right.setValue(right);
+					window.speed_slider.setValue(100);
+					window.button.doClick();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -222,7 +238,7 @@ public class Demo{
 		gbc_speed_slider.gridy = 7;
 		panel.add(speed_slider, gbc_speed_slider);
 		
-		JButton button = new JButton("Play");
+		button = new JButton("Play");
 		GridBagConstraints gbc_button = new GridBagConstraints();
 		gbc_button.insets = new Insets(0, 0, 0, 5);
 		gbc_button.gridx = 0;
@@ -265,7 +281,7 @@ public class Demo{
 			iterations++;
 			iter_label.setText(String.valueOf(iterations));
 			drawnGrid.repaint();
-			System.out.println("Heating Done: " + heating_done);
+			//System.out.println("Heating Done: " + heating_done);
 			if(heating_done && checkBox.isSelected())
 			{
 				animation_timer.stop();
@@ -273,6 +289,12 @@ public class Demo{
 			}
 			else if(heating_done) {
 				animation_timer.stop();
+				Runtime runtime = Runtime.getRuntime();
+				long max_mem = runtime.totalMemory() - runtime.freeMemory();
+				long stopTime = System.currentTimeMillis();
+		        long elapsedTime = stopTime - startTime;
+		        System.out.println(String.format("%d, %d, %d", iterations, elapsedTime, max_mem));
+		        System.exit(0);
 			}
         }
 	}
@@ -286,6 +308,8 @@ public class Demo{
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			System.out.print("GUI_" + SimType_comboBox.getSelectedItem() + ", "); //instrumentation code 
+			startTime = System.currentTimeMillis();
 			int    dimen = (Integer) spinner_dimen.getValue();
 			Double top   = (Double) spinner_top.getValue();
 			Double bot   = (Double) spinner_bot.getValue();
