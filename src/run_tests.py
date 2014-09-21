@@ -1,17 +1,14 @@
 __author__ = 'Anthony'
 import os
 from subprocess import Popen, PIPE
-from itertools import combinations
-print os.getcwd()
-os.chdir("../bin")
-print os.getcwd()
 
 # Parameters
-samples = 10 # number of samples to run at each test point
+bin_dir = "../bin"
+samples = 10  # number of samples to run at each test point
 plate_dimens = [10 * i for i in range(1,11)]   # a list of plate dimensions to test, could be like [10, 25, 50, 75, 100]
 initial_heats = [10 * i for i in range(1,11)]  # a list of initial heats for the tests, could be like [10, 20, 50, 100]
 # End Parameters
-
+os.chdir("../bin")
 simulations = ["Tpdahp", "Twdahp", "Tpdohp", "Tpfahp", "Twfahp"]
 test_results = {}
 header = "Sim Type, Top Heat, Dimension, iterations, time (ms), memory usage (bytes)"

@@ -2,17 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5b7249cd-a91e-4b96-9453-eb4cfff24a85" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Gallhp/Demo.java" afterPath="$PROJECT_DIR$/src/Gallhp/Demo.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Tpdahp/Demo.java" afterPath="$PROJECT_DIR$/src/Tpdahp/Demo.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Tpdohp/Demo.java" afterPath="$PROJECT_DIR$/src/Tpdohp/Demo.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Tpfahp/Demo.java" afterPath="$PROJECT_DIR$/src/Tpfahp/Demo.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Twdahp/Demo.java" afterPath="$PROJECT_DIR$/src/Twdahp/Demo.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Twfahp/Demo.java" afterPath="$PROJECT_DIR$/src/Twfahp/Demo.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Tpdahp/Simulator.java" afterPath="$PROJECT_DIR$/src/Tpdahp/Simulator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Tpdohp/Simulator.java" afterPath="$PROJECT_DIR$/src/Tpdohp/Simulator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Tpfahp/Simulator.java" afterPath="$PROJECT_DIR$/src/Tpfahp/Simulator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Twdahp/Simulator.java" afterPath="$PROJECT_DIR$/src/Twdahp/Simulator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Twfahp/Simulator.java" afterPath="$PROJECT_DIR$/src/Twfahp/Simulator.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/run_tests.py" afterPath="$PROJECT_DIR$/src/run_tests.py" />
     </list>
     <ignored path="CS6310-project1.iws" />
@@ -39,7 +28,7 @@
       <file leaf-file-name="run_tests.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/run_tests.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="46" column="34" selection-start="1964" selection-end="1964" vertical-scroll-proportion="1.3979739" vertical-offset="0" max-vertical-offset="1407">
+            <state line="2" column="34" selection-start="67" selection-end="67" vertical-scroll-proportion="0.060781475" vertical-offset="0" max-vertical-offset="1344">
               <folding>
                 <element signature="e#23#32#0" expanded="true" />
               </folding>
@@ -336,7 +325,7 @@
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39943874" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3292797" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3292797" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -382,7 +371,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/run_tests.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="46" column="34" selection-start="1964" selection-end="1964" vertical-scroll-proportion="1.3979739" vertical-offset="0" max-vertical-offset="1407">
+        <state line="2" column="34" selection-start="67" selection-end="67" vertical-scroll-proportion="0.060781475" vertical-offset="0" max-vertical-offset="1344">
           <folding>
             <element signature="e#23#32#0" expanded="true" />
           </folding>
