@@ -30,7 +30,7 @@ def parse_output(output):
     print "{}, {}, {}, {}, {}, {}".format(simtype, initial_heat, plate_dimen, iter, ms, mem)
 
 
-for i in xrange(0):
+for i in xrange(samples):
     for initial_heat in initial_heats:
         for plate_dimen in plate_dimens:
             for simulation in simulations:
@@ -40,8 +40,8 @@ for i in xrange(0):
                 exit_code = process.wait()  # we need to wait for each one to finish so that we don't overload the system
                 parse_output(output)
 
-simulations = range(5) #  indices for the simtypes are [0,1,2,3,4]
-for i in xrange(2):
+simulations = range(5)  # indices for the simtypes combobox are [0,1,2,3,4], so I just made a seperate loop
+for i in xrange(samples):
     for initial_heat in initial_heats:
         for plate_dimen in plate_dimens:
             for simulation in simulations:
