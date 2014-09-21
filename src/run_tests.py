@@ -5,9 +5,13 @@ from itertools import combinations
 print os.getcwd()
 os.chdir("../bin")
 print os.getcwd()
-# Tpdahp
-plate_dimens = [10 * i for i in range(1,3)]
-initial_heats = [10 * i for i in range(1,3)]
+
+# Parameters
+samples = 10 # number of samples to run at each test point
+plate_dimens = [10 * i for i in range(1,11)]   # a list of plate dimensions to test, could be like [10, 25, 50, 75, 100]
+initial_heats = [10 * i for i in range(1,11)]  # a list of initial heats for the tests, could be like [10, 20, 50, 100]
+# End Parameters
+
 simulations = ["Tpdahp", "Twdahp", "Tpdohp", "Tpfahp", "Twfahp"]
 test_results = {}
 header = "Sim Type, Top Heat, Dimension, iterations, time (ms), memory usage (bytes)"
@@ -26,7 +30,7 @@ def parse_output(output):
     print "{}, {}, {}, {}, {}, {}".format(simtype, initial_heat, plate_dimen, iter, ms, mem)
 
 
-for i in xrange(2):
+for i in xrange(0):
     for initial_heat in initial_heats:
         for plate_dimen in plate_dimens:
             for simulation in simulations:
@@ -36,7 +40,7 @@ for i in xrange(2):
                 exit_code = process.wait()  # we need to wait for each one to finish so that we don't overload the system
                 parse_output(output)
 
-simulations = range(5)
+simulations = range(5) #  indices for the simtypes are [0,1,2,3,4]
 for i in xrange(2):
     for initial_heat in initial_heats:
         for plate_dimen in plate_dimens:
