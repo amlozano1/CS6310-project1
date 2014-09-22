@@ -244,7 +244,7 @@ public class Demo{
 		gbc_drawnGrid.gridy = 0;
 		frame.getContentPane().add(drawnGrid, gbc_drawnGrid);
 		
-		int speed_ms = (101 - speed_slider.getValue()) * 10;
+		int speed_ms = (100 - speed_slider.getValue());
 		animation_timer = new Timer(speed_ms, null);
 		animation_timer.addActionListener(new AnimationListener());
 		animation_timer.setCoalesce(false); //if there already is a trigger in the event loop, don't trigger again.
@@ -316,7 +316,7 @@ public class Demo{
 			else {
 				throw new UnsupportedOperationException("That simulation type is not supported yet.");
 			}
-			int speed_ms = (101 - speed_slider.getValue()) * 10;
+			int speed_ms = (100 - speed_slider.getValue());
 			
 			GridBagConstraints gbc_drawnGrid = new GridBagConstraints();
 			gbc_drawnGrid.fill = GridBagConstraints.BOTH;

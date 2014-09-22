@@ -17,7 +17,6 @@ public class Demo {
 		SimulatorParams params = new SimulatorParams(args);
 		Simulator sim = new Simulator(params);
 		sim.heat();
-		System.out.println("Tpdahp:");
 		System.out.print(sim.toString());
 	}
 
